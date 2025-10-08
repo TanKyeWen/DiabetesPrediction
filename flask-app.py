@@ -28,7 +28,7 @@ def predict_diabetes():
     height_value = data["Height"]
     weight_value = data["Weight"]
 
-    BMI = int(weight_value) / pow((int(height_value)/100), 2)
+    BMI = float(weight_value) / pow((float(height_value)/100), 2)
 
     data["BMI"] = BMI
 
@@ -39,9 +39,7 @@ def predict_diabetes():
     features = [data[feature] for feature in feature_order]
     features = np.array(features).reshape(1,-1)
     prediction = model.predict(features).tolist()
-    logger.info("Predicting with: ", data)
-    logger.info("Outcome: ", prediction)
-    return jsonify({"Result": prediction}), 200
+    return jsonify({"Result": prediction[0]}), 200
 
 if __name__ == '__main__':
     app.run(
